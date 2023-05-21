@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shu.eshare.mapper.ResourceCommentMapper">
+
+    <resultMap id="BaseResultMap" type="com.shu.eshare.model.domain.ResourceComment">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="resourceId" column="resource_id" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="ResourceCommentVOResultMap" type="com.shu.eshare.model.vo.ResourceCommentVO">
+        <result property="avatarUrl" column="avatar_url" jdbcType="VARCHAR"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="findResourceCommentVOByResourceId" resultMap="ResourceCommentVOResultMap" parameterType="long">
+        select u.avatar_url,u.nickname,rc.content,rc.create_time
+        FROM resource_comment rc left join user u
+        on rc.user_id = u.user_id
+        where rc.is_delete = 0 and rc.resource_id = #{resourceId}
+        order by rc.create_time desc
+    </select>
+
+    <sql id="Base_Column_List">
+        id,content,user_id,resource_id,
+        create_time,update_time,is_delete
+    </sql>
+</mapper>

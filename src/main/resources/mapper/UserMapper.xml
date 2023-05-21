@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shu.eshare.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.shu.eshare.model.domain.User">
+            <id property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="personalSignature" column="personal_signature" jdbcType="VARCHAR"/>
+            <result property="ipAddress" column="ip_address" jdbcType="BIGINT"/>
+            <result property="avatarUrl" column="avatar_url" jdbcType="VARCHAR"/>
+            <result property="school" column="school" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+            <result property="gender" column="gender" jdbcType="INTEGER"/>
+            <result property="userRole" column="user_role" jdbcType="INTEGER"/>
+            <result property="readNum" column="read_num" jdbcType="BIGINT"/>
+            <result property="likesNum" column="likes_num" jdbcType="BIGINT"/>
+            <result property="accumulatePoints" column="accumulate_points" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="isDelete" column="is_delete" jdbcType="OTHER"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id,username,nickname,
+        password,personal_signature,ip_address,
+        avatar_url,school,phone,
+        birthday,gender,user_role,
+        read_num,likes_num,accumulate_points,
+        status,is_delete,update_time,
+        create_time
+    </sql>
+</mapper>

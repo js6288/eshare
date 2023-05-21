@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shu.eshare.mapper.UniversityMapper">
+
+    <resultMap id="BaseResultMap" type="com.shu.eshare.model.domain.University">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <id property="universityName" column="university_name" jdbcType="VARCHAR"/>
+            <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,university_name,is_delete
+    </sql>
+</mapper>

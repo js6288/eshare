@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shu.eshare.mapper.ArticleCommentMapper">
+
+    <resultMap id="BaseResultMap" type="com.shu.eshare.model.domain.ArticleComment">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+            <result property="rootId" column="root_id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="articleId" column="article_id" jdbcType="BIGINT"/>
+            <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="likeNum" column="like_num" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <resultMap id="ArticleCommentVOMap" type="com.shu.eshare.model.vo.ArticleCommentVO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+        <result property="rootId" column="root_id" jdbcType="BIGINT"/>
+        <result property="userId" column="user_id" jdbcType="BIGINT"/>
+        <result property="articleId" column="article_id" jdbcType="BIGINT"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="likeNum" column="like_num" jdbcType="BIGINT"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="avatarUrl" column="avatar_url" jdbcType="VARCHAR"/>
+        <result property="likeStatus" column="like_status"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,content,parent_id,
+        root_id,user_id,article_id,
+        is_delete,create_time,update_time,
+        like_num
+    </sql>
+    <select id="selectCommentVOByIds" resultType="com.shu.eshare.model.vo.ArticleCommentVO">
+        SELECT ac.id,ac.content,ac.parent_id,ac.root_id,ac.user_id,ac.article_id,ac.create_time,ac.like_num,u.nickname,u.avatar_url,IFNULL(cl.id,0) as like_status
+        FROM `article_comment` ac
+                 LEFT JOIN user u on ac.user_id = u.user_id
+                 LEFT JOIN comment_likes cl on ac.id = cl.comment_id and cl.user_id = #{loginUserId}
+        WHERE ac.id in
+        <foreach collection="commentIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ORDER BY ac.create_time
+    </select>
+
+</mapper>
