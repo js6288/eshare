@@ -24,7 +24,7 @@ The back-end uses Java language, based on Spring Boot framework development, MyB
 
 # **目 录**
 
-略（目录太长，发博客太浪费空间了删了）
+[TOC]
 
 # 1 绪论 
 
